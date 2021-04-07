@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="RoundProfileButton.ProfileButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RoundProfileButton"
+             mc:Ignorable="d" x:Name="_profileButton" Height="Auto" Width="Auto">
+    <UserControl.Resources>
+        <BitmapImage x:Key="DefaultImage" UriSource="/assets/noimageerror.png"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="MinHeight" Value="50"/>
+                    <Setter Property="MinWidth" Value="50"/>
+                    <Setter Property="Focusable" Value="False"/>
+                </Style>
+            </Button.Style>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Ellipse>
+                            <Ellipse.Fill>
+                                <ImageBrush Stretch="Uniform" ImageSource="{Binding ElementName=_profileButton, Path=ProfileImageSource, FallbackValue={StaticResource DefaultImage}, TargetNullValue={StaticResource DefaultImage}}"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <!--#region Availability Ellipse-->
+                        <Ellipse Fill="Green" StrokeThickness="4" Stroke="White" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <!--#endregion-->
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Grid Grid.Column="1" Margin="6,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="{Binding ElementName=_profileButton, Path=UserName, TargetNullValue=username}" Foreground="Black" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Row="1" Text="{Binding ElementName=_profileButton, Path=Availability, TargetNullValue=availability}" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        </Grid>
+    </Grid>
+</UserControl>
